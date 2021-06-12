@@ -11,11 +11,14 @@ const http = require('http');
 const { handleReqRes } = require('./helpers/handleReqRes');
 const process = require('process');
 const environment = require('./helpers/environments');
-
+const data = require('./lib/data.js');
 // console.log(handleReqRes());
 // console.log('hi threre sdf ');
 // // App object-module scaffoling
 const app = {};
+
+// Check data is created or not (Testing file system)
+data.update('test', 'addedFile');
 // console.log(typeof app);
 // Configuration section
 app.config = {
