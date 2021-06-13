@@ -15,16 +15,19 @@ const environments = {};
 environments.staging = {
   port: 3000,
   envName: 'staging',
+  secretKey: 'hsjdhsdhsjdhjshdjshd',
 };
 
 environments.production = {
   port: 5000,
   envName: 'production',
+  secretKey: 'dfsfsfsgdfgfd',
 };
 
 // determine which environment was passed
 // Defult value set as staging,if something gone wrong
 const currentEnvironment =
+  // eslint-disable-next-line no-undef
   typeof process.env.NODE_ENV === 'string' ? process.env.NODE_ENV : 'staging';
 
 // export corresponding environment object
@@ -34,4 +37,5 @@ const environmentToExport =
     : environments.staging;
 
 // export module
+// eslint-disable-next-line no-undef
 module.exports = environmentToExport;

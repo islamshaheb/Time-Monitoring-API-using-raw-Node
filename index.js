@@ -4,7 +4,7 @@
  *
  * @format
  */
-
+/* eslint-env node */
 //dependencies
 const http = require('http');
 // handleReqRes Must be the same as that file where we are exporting
@@ -18,7 +18,9 @@ const data = require('./lib/data.js');
 const app = {};
 
 // Check data is created or not (Testing file system)
-data.update('test', 'addedFile');
+data.update('test', 'addedFile', { Name: 'Mojahidul Islam', Age: '26' }, (err) => {
+  console.log(err);
+});
 // console.log(typeof app);
 // Configuration section
 app.config = {
