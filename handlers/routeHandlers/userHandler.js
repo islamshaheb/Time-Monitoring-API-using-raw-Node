@@ -2,20 +2,31 @@
  * /*
  * Title: User Handler
  * Description: Handler to handle user related routes
- * Author:Mojahid
+ * Author: Mojahid
  * Date: 6.13.2021
  *
  * @format
  */
 /* eslint-env node */
 // dependencies
-const data = require('../../lib/data');
+const data = require('../../lib/data.js');
 const { hash } = require('../../helpers/utilities');
 const { parseJSON } = require('../../helpers/utilities');
 
 // module scaffolding
 const handler = {};
+/*
+Other name is also allowed
+handler.userHandler = (requestProperties, callback) => {
+  console.log(requestProperties);
+  callback(200, {
+    message: 'This is from Sample',
+    phone: '01 from the terminal',
+  });
+};
 
+module.exports = handler;
+*/
 handler.userHandler = (requestProperties, callback) => {
   const acceptedMethods = ['get', 'post', 'put', 'delete'];
   if (acceptedMethods.indexOf(requestProperties.method) > -1) {
@@ -27,6 +38,7 @@ handler.userHandler = (requestProperties, callback) => {
 
 handler._users = {};
 
+// For post Request
 handler._users.post = (requestProperties, callback) => {
   const firstName =
     typeof requestProperties.body.firstName === 'string' &&
@@ -58,7 +70,7 @@ handler._users.post = (requestProperties, callback) => {
       : false;
 
   if (firstName && lastName && phone && password && tosAgreement) {
-    // make sure that the user doesn't already exists
+    // make sure that the user doesn't already exists, if there no need to insert user's data
     data.read('users', phone, (err1) => {
       if (err1) {
         const userObject = {
@@ -66,6 +78,7 @@ handler._users.post = (requestProperties, callback) => {
           firstName,
           lastName,
           phone,
+          //password,
           password: hash(password),
           tosAgreement,
         };
@@ -76,7 +89,16 @@ handler._users.post = (requestProperties, callback) => {
               message: 'User was created successfully!',
             });
           } else {
-            callback(500, { error: 'Could not create user!' });
+            callback(500, { error: 'Could not create user! ;(' });
+            // Print to test are all data is coming correctly
+            /*
+            console.log(userObject.firstName);
+            console.log(userObject.lastName);
+            console.log(userObject.phone);
+            console.log(userObject.password);
+            console.log(userObject.tosAgreement);
+            console.log(err2);
+            */
           }
         });
       } else {
@@ -128,7 +150,8 @@ handler._users.put = (requestProperties, callback) => {
     requestProperties.body.phone.trim().length === 11
       ? requestProperties.body.phone
       : false;
-
+  console.log(phone);
+  console.log(requestProperties.body.phone);
   const firstName =
     typeof requestProperties.body.firstName === 'string' &&
     requestProperties.body.firstName.trim().length > 0
@@ -158,11 +181,16 @@ handler._users.put = (requestProperties, callback) => {
             userData.firstName = firstName;
           }
           if (lastName) {
-            userData.firstName = firstName;
+            userData.lastName = lastName;
           }
           if (password) {
             userData.password = hash(password);
           }
+
+          console.log(firstName);
+          console.log(lastName);
+          console.log(phone);
+          console.log(password);
 
           // store to database
           data.update('users', phone, userData, (err2) => {
