@@ -54,7 +54,7 @@ handler._token.post = (requestProperties, callback) => {
           expires,
         };
 
-        // store the token
+        // store the token in database
         data.create('tokens', tokenId, tokenObject, (err2) => {
           if (!err2) {
             callback(200, tokenObject);
@@ -89,6 +89,7 @@ handler._token.get = (requestProperties, callback) => {
     data.read('tokens', id, (err, tokenData) => {
       const token = { ...parseJSON(tokenData) };
       if (!err && token) {
+        // console.log(id);
         callback(200, token);
       } else {
         callback(404, {
@@ -116,6 +117,7 @@ handler._token.put = (requestProperties, callback) => {
     data.read('tokens', id, (err1, tokenData) => {
       const tokenObject = parseJSON(tokenData);
       if (tokenObject.expires > Date.now()) {
+        // if it not expired then we need to upate (We are updating 1 hr)
         tokenObject.expires = Date.now() + 60 * 60 * 1000;
         // store the updated token
         data.update('tokens', id, tokenObject, (err2) => {
