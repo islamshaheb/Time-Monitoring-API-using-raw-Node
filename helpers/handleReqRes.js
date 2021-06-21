@@ -62,7 +62,6 @@ handler.handleReqRes = (req, res) => {
       res.setHeader('Content-Type', 'application/json');
       res.writeHead(statusCode);
       res.end(payloadString);
-      console.log(chosenHandler);
     });
   });
 };

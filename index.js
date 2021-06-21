@@ -9,7 +9,7 @@
 const http = require('http');
 // handleReqRes Must be the same as that file where we are exporting
 const { handleReqRes } = require('./helpers/handleReqRes');
-const process = require('process');
+//const process = require('process');
 const environment = require('./helpers/environments');
 const data = require('./lib/data.js');
 // console.log(handleReqRes());
@@ -33,7 +33,7 @@ app.createServer = () => {
   server.listen(environment.port, () => {
     // X can be any Name
     // console.log(`Environment variable is ${process.env.c}`);
-    console.log(`listening to port ${environment.port}`);
+    console.log(`listening to port $ ${environment.port}`);
   });
 };
 
