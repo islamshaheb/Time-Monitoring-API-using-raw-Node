@@ -5,6 +5,7 @@
  * @format
  */
 /* eslint-env node */
+
 //dependencies
 const http = require('http');
 // handleReqRes Must be the same as that file where we are exporting
@@ -12,10 +13,18 @@ const { handleReqRes } = require('./helpers/handleReqRes');
 //const process = require('process');
 const environment = require('./helpers/environments');
 const data = require('./lib/data.js');
-// console.log(handleReqRes());
-// console.log('hi threre sdf ');
+const { sendTwilioSms } = require('./helpers/notifications');
+
+// //console.log(handleReqRes());
+//// console.log('hi threre sdf ');
 // // App object-module scaffoling
+
 const app = {};
+
+// @TODO remove later
+sendTwilioSms('01955384162', 'Hello world', (err) => {
+  console.log(`this is the error`, err);
+});
 
 // Check data is created or not (Testing file system)
 data.update('test', 'addedFile', { Name: 'Mojahidul Islam', Age: '26' }, (err) => {

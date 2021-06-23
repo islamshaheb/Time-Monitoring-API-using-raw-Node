@@ -15,14 +15,25 @@ const environments = {};
 environments.staging = {
   port: 3000,
   envName: 'staging',
-  secretKey: 'hsjdhsdhsjdhjshdjshd',
+  secretKey: 'aekdjfngkdoldjenngkd',
   maxChecks: 5,
+  twilio: {
+    /// This token to collect from twilo
+    fromPhone: '+15005550006',
+    accountSid: 'afsfsf', //// dami data
+    authToken: 'adfsdf', //// dami data
+  },
 };
 
 environments.production = {
   port: 5000,
   envName: 'production',
   secretKey: 'dfsfsfsgdfgfd',
+  twilio: {
+    fromPhone: '',
+    accountSid: '',
+    authToken: '',
+  },
 };
 
 // determine which environment was passed
